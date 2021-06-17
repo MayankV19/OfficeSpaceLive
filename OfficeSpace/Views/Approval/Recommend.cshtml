@@ -1,0 +1,217 @@
+﻿@model OfficeSpace.Models.ApprovalModel
+@{
+    ViewBag.Title = "Recommend";
+}
+
+
+<div id="page-wrapper">
+    <div class="panel">
+        <div class="panel-heading red-background-colour">
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                    <h4><strong>Recommend Request</strong></h4>
+                </div>
+                <div class="col-lg-8 col-md-8 col-sm-8">&nbsp;</div>
+            </div>
+        </div>
+        <div class="panel-body">
+            @using (Html.BeginForm("UpdateRecommendedRequest", "Approval", FormMethod.Post, new { @class = "form-font" }))
+            {
+                <div class="form-font table-responsive" style="width:auto; overflow-x:scroll">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr class="table-heading-font">
+                                <th class="table-head-th" style="white-space:nowrap">Company Name</th>
+                                <th class="table-head-th" style="white-space:nowrap">Request Type</th>
+                                <th class="table-head-th" style="white-space:nowrap">Business Type</th>
+                                <th class="table-head-th" style="white-space:nowrap">City</th>
+                                <th class="table-head-th" style="white-space:nowrap">Location</th>
+                                <th class="table-head-th">No. of Persons</th>
+                                <th class="table-head-th">Signage</th>                                
+                                <th class="table-head-th">Super Area</th>
+                                <th class="table-head-th">Car Park</th>
+                                <th class="table-head-th" style="white-space:nowrap">Security Deposit</th>
+                                <th class="table-head-th">Fitout</th>
+                                <th class="table-head-th" style="white-space:nowrap">Cost Per Square Feet</th>
+                                <th class="center">Recommend</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var detail in Model.RequestDataList)
+                            {
+                                var indexing = Model.RequestDataList.IndexOf(detail);
+                                @Html.HiddenFor(m => m.RequestDataList[indexing].ID)
+                                @Html.HiddenFor(m => m.RequestDataList[indexing].Name)
+                            <tr>
+                                <td style="white-space:nowrap">
+                                    @if (Model.IDandCompanyNameList != null && detail.Name == "MR")
+                                    {
+                                        <select class="form-control" id="company_@indexing" name="RequestDataList[@indexing].Company">
+                                            @if (Model.IDandCompanyNameList.ContainsKey(detail.ID))
+                                            {
+                                                foreach (string item in Model.IDandCompanyNameList[detail.ID])
+                                                {
+                                                <option value="@item">@item</option>
+                                                }
+
+                                            }
+
+                                        </select>
+                                    }
+                                    else
+                                    {
+                                        @detail.Company
+                                    }
+                                </td>
+                                <td style="white-space:nowrap">
+                                    @if (Model.IDandMenuSelection != null && detail.Name == "MR")
+                                    {
+                                        <select class="form-control" id="selectedMenu_@indexing" name="RequestDataList[@indexing].SelectedMenu">
+                                            @if (Model.IDandMenuSelection.ContainsKey(detail.ID))
+                                            {
+                                                foreach (string item in Model.IDandMenuSelection[detail.ID])
+                                                {
+                                                <option value="@item">@item</option>
+                                                }
+                                            }
+
+                                        </select>
+                                    }
+                                    else
+                                    {
+                                        @detail.SelectedMenu
+                                    }
+
+                                </td>
+                                <td style="white-space:nowrap">
+                                    @if (Model.IDandBuisnessType != null && detail.Name == "MR")
+                                    {
+                                        <select class="form-control" id="buisnessType_@indexing" name="RequestDataList[@indexing].BuisnessType">
+                                            @if (Model.IDandBuisnessType.ContainsKey(detail.ID))
+                                            {
+                                                foreach (string item in Model.IDandBuisnessType[detail.ID])
+                                                {
+                                                <option value="@item">@item</option>
+                                                }
+                                            }
+
+                                        </select>
+                                    }
+                                    else
+                                    {
+                                        @detail.BuisnessType
+                                    }
+                                </td>
+                                <td style="white-space:nowrap">
+                                    @detail.City
+                                </td>
+                                <td style="white-space:nowrap">
+                                    @detail.Location
+                                </td>
+                                <td>
+                                    @if (detail.Name == "MR")
+                                    {
+                                        <input type="text" class="form-control form-control-sm input-md makereadonly" id="noOfPersons_@indexing" name="RequestDataList[@indexing].NoOfPersons" value="@detail.NoOfPersons" maxlength="10" />
+                                    }
+                                    else
+                                    {
+                                        @detail.NoOfPersons
+                                    }
+                                </td>
+                                <td>
+                                    @if (detail.Name == "MR")
+                                    {
+                                        <input type="text" class="form-control form-control-sm input-md makereadonly" id="signage_@indexing" name="RequestDataList[@indexing].Signage" value="@detail.Signage" maxlength="10" />
+                                    }
+                                    else
+                                    {
+                                        @detail.Signage
+                                    }
+                                </td>                                
+                                <td>
+                                    @if (detail.Name == "MR")
+                                    {
+                                        <input type="text" class="form-control form-control-sm input-md makereadonly" id="superarea_@indexing" name="RequestDataList[@indexing].SuperArea" value="@detail.SuperArea" maxlength="10" />
+                                    }
+                                    else
+                                    {
+                                        @detail.SuperArea
+                                    }
+                                </td>
+                                <td>
+                                    @if (detail.Name == "MR")
+                                    {
+                                        <input type="text" class="form-control form-control-sm input-md makereadonly" id="carpark_@indexing" name="RequestDataList[@indexing].CarPark" value="@detail.CarPark" maxlength="10" />
+                                    }
+                                    else
+                                    {
+                                        @detail.CarPark
+                                    }
+                                </td>
+                                <td>
+                                    @if (detail.Name == "MR")
+                                    {
+                                        <input type="text" class="form-control form-control-sm input-md makereadonly" id="securitydeposit_@indexing" name="RequestDataList[@indexing].SecurityDeposit" value="@detail.SecurityDeposit" maxlength="10" />
+                                    }
+                                    else
+                                    {
+                                        @detail.SecurityDeposit
+                                    }
+                                </td>
+                                <td>
+                                    @if (detail.Name == "MR")
+                                    {
+                                        <input type="text" class="form-control form-control-sm input-md makereadonly" id="fitouts_@indexing" name="RequestDataList[@indexing].Fitouts" value="@detail.Fitouts" maxlength="10" />
+                                    }
+                                    else
+                                    {
+                                        @detail.Fitouts
+                                    }
+                                </td>
+                                <td>
+                                    @if (detail.Name == "MR")
+                                    {
+                                        <input type="text" class="form-control form-control-sm input-md makereadonly" id="costpersquarefeet_@indexing" name="RequestDataList[@indexing].CostPerSquareFeet" value="@detail.CostPerSquareFeet" maxlength="10" />
+                                    }
+                                    else
+                                    {
+                                        @detail.CostPerSquareFeet
+                                    }
+                                </td>
+                                <td class="text-center">
+                                    <span class="onoffswitch">
+                                        <input type="checkbox" id="active_@indexing" name="RequestDataList[@indexing].IsRecommended" class="onoffswitch-checkbox" onchange="setvalue(this.id)" @(detail.IsRecommended == true ? "value=true" : "value=false") @(detail.IsRecommended == true ? "checked=checked" : "") />
+                                        <label class="onoffswitch-label" for="active_@indexing">
+                                            <span class="onoffswitch-inner" data-swchon-text="ON" data-swchoff-text="OFF"></span>
+                                            <span class="onoffswitch-switch"></span>
+                                        </label>
+                                    </span>
+                                </td>
+                            </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row pull-right">
+                    <div class="col-lg-12 col-md-12 col-sm-12">                       
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-check-circle">&nbsp;</i>Update</button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        activeSideNav('recommend');
+    });
+
+    function setvalue(id) {
+        var checkbox = document.getElementById(id);
+        checkbox.value = checkbox.checked;
+    }
+
+</script>
+

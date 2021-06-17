@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <link href="/Images/sis.png" rel="shortcut icon" type="image/x-icon" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OFFICE SPACE APPROVAL SYSTEM</title>
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/font-awesome-4.1.0/css/font-awesome.css")
+    <link rel="stylesheet" type="text/css" href="~/Content/sb-admin-2.css">
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+   
+    
+
+</head>
+<!--Uncomment this section for login Page-->
+@if (Session["CurrentUserName"] == null)
+{
+    <body class="login-background">
+        <div>
+            <header>
+                @Html.Partial("~/Views/Shared/_Navigation.cshtml")
+            </header>
+            @RenderBody()
+        </div>
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+    </body>
+}
+else
+{
+    <body class="red-background-colour">
+        <div id="wrapper">
+            <div>
+                <!-- Sidebar -->
+                <div>
+                    @Html.Partial("~/Views/Shared/_SidebarNav.cshtml")
+                </div>
+                @RenderBody()
+            </div>
+        </div>
+        <!--Uncomment this section for Post login Pages-->
+        @*<footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>*@
+
+
+        @Scripts.Render("~/bundles/bootstrap")
+        <script src="~/Scripts/bootstrap-datepicker.js" type="text/javascript"></script>
+        <link rel="stylesheet" href="~/Content/bootstrap-datepicker.css" type="text/css" />
+        @RenderSection("scripts", required: false)
+    </body>
+}
+</html>

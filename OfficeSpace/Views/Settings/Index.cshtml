@@ -1,0 +1,235 @@
+﻿@model OfficeSpace.Models.SettingsModel
+@{
+    ViewBag.Title = "Setting Page";
+}
+<style>
+    .validationError {
+        font-size: 14px;
+        color: #ff0000;
+    }
+
+    span.field-validation-error {
+        color: red;
+    }
+</style>
+
+<div style="background-color:white" id="page-wrapper">
+    <ul class="nav nav-pills" role="tablist">
+        <li class="active" id="CreateUser" onclick="activeTabPill(this)"><a href="#"><i class="fa fa-1x fa-user">&nbsp;</i>&emsp;&emsp;Create User&emsp;&emsp;</a></li>
+        <li id="ManageUser" onclick="activeTabPill(this)"><a href="#"><i class="fa fa-1x fa-users">&nbsp;</i>&emsp;&emsp;Manage User&emsp;&emsp;</a></li>
+    </ul>
+
+    <div class="pill-content pill-content-border">
+        <div class="pill-pane active" id="CreateUserPane" tabindex="0">
+            @using (Html.BeginForm("CreateUser", "Settings", FormMethod.Post, new { @class = "form-font" ,id="CreateUserForm"}))
+            {
+                @Html.HiddenFor(m=>m.SelectedCompanyList,new { id="SelectedCompanyList"})
+                <div class="row">
+                    @if (!string.IsNullOrEmpty(TempData["error"]?.ToString()))
+                    {
+                        <div class="col-md-12 text-danger mb-2">@TempData["error"]</div>
+                    }
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            <label for="UserName">Username</label>
+                            @Html.TextBoxFor(m => m.NewUserName, new { value = "", @class = "form-control form-control-sm input-md", id = "Username" })
+                            @Html.ValidationMessageFor(m => m.NewUserName)
+                        </div>
+                        <div class="form-group">
+                            <label for="FirstName">First Name</label>
+                            @Html.TextBoxFor(m => m.FirstName, new { value = "", @class = "form-control form-control-sm input-md", id = "Firstname" })
+                            @Html.ValidationMessageFor(m => m.FirstName)
+                        </div>
+                        <div class="form-group">
+                            <label for="CompnayName">Company Name</label>
+                            <select class="form-control" id="Company" name="Company" multiple="multiple" size="2">
+                                @if (Model != null)
+                                {
+                                    foreach (string item in Model.CompanyList)
+                                    {
+                                        <option value="@item">@item</option>
+                                    }
+                                }
+                            </select>                           
+                        </div>
+                        <div class="form-group">
+                            <label for="Position">Position</label>
+                            @Html.TextBoxFor(m => m.Position, new { value = "", @class = "form-control form-control-sm input-md", id = "Position" })
+                            @Html.ValidationMessageFor(m => m.Position)
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            <label for="Password">Password</label>
+                            @Html.PasswordFor(m => m.UserPassword, new { value = "", @class = "form-control form-control-sm input-md", id = "UserPassword" })
+                            @Html.ValidationMessageFor(m => m.UserPassword)
+                        </div>
+                        <div class="form-group">
+                            <label for="LastName">Last Name</label>
+                            @Html.TextBoxFor(m => m.LastName, new { value = "", @class = "form-control form-control-sm input-md", id = "LastName" })
+                            @Html.ValidationMessageFor(m => m.LastName)
+                        </div>
+                        <div class="form-group">
+                            <label for="companyemail">Company Email</label>
+                            @Html.TextBoxFor(m => m.CompanyEmail, new { value = "", @class = "form-control form-control-sm input-md", id = "CompanyEmail" })
+                            @Html.ValidationMessageFor(m => m.CompanyEmail)
+                        </div>
+                        <div class="form-group">
+                            <label for="UserRole">User Role</label>
+                            <select id="UserRole" name="UserRole" class="form-control form-control-sm input-md">
+                                @foreach (var role in Model.UserRoles)
+                                {
+                                    <option selected="selected" value="@role.RoleName">@role.RoleName</option>
+                                }
+                            </select>
+                            @Html.ValidationMessageFor(m => m.UserRole)
+                        </div>
+                    </div>
+                </div>
+                <div class="row pull-right">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        @*<button type="button" class="btn btn-primary"><i class="fa fa-times-circle-o">&nbsp;</i>Cancel</button>&emsp;*@
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-check-circle">&nbsp;</i>Save</button>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <div class="pill-pane" id="ManageUserPane" tabindex="1">
+            @using (Html.BeginForm("Update", "Settings", FormMethod.Post, new { @class = "form-font" }))
+            {
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="form-font table-responsive" style="overflow:scroll; height:500px" >
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr class="table-heading-font">
+                                        <th class="table-head-th" style="min-width: 110px;">First Name</th>
+                                        <th class="table-head-th" style="min-width: 110px;">Last Name</th>
+                                        <th class="table-head-th" style="min-width: 100px;">User Name</th>
+                                        <th class="table-head-th">Company</th>
+                                        <th class="table-head-th">Email</th>
+                                        <th class="table-head-th">Position</th>
+                                        <th class="table-head-th" style="min-width: 110px;">User Role</th>
+                                        <th class="table-head-th text-center">Active</th>
+                                        <th class="table-head-th" style="min-width: 110px;">Country</th>
+                                        <th class="table-head-th">PhoneNumber</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="table-data-font">
+                                    @foreach (var detail in Model.UsersList)
+                                    {
+                                        var indexing = Model.UsersList.IndexOf(detail);
+                                        @Html.HiddenFor(m => m.UsersList[indexing].UserId)
+                                        @Html.HiddenFor(m => m.UsersList[indexing].FirstName)
+                                        @Html.HiddenFor(m => m.UsersList[indexing].CompanyEmail)
+                                        @Html.HiddenFor(m => m.UsersList[indexing].UserId)
+                                        <tr>
+                                            <td>
+                                                @(string.IsNullOrEmpty(detail.FirstName) ? @detail.UserName : @detail.FirstName)
+                                            </td>
+                                            <td>
+                                                @detail.LastName
+                                            </td>
+                                            <td>
+                                                @detail.UserName
+                                            </td>
+                                            <td>
+                                                <select class="form-control form-control-sm input-md makereadonly">
+                                                    @foreach (var compName in detail.CompanyName)
+                                                    {
+                                                        <option selected="selected">@compName</option>
+                                                    }
+                                                </select>
+                                            </td>
+                                            <td>
+                                                @detail.CompanyEmail
+                                            </td>
+                                            <td>
+                                                @detail.Position
+                                            </td>
+                                            <td style="min-width: 110px;">
+                                                <select id="userrole_@indexing" name="UsersList[@indexing].UserRole" class="form-control form-control-sm input-md makereadonly">
+                                                    @foreach (var role in Model.UserRoles)
+                                                    {
+                                                        if (role.RoleName == detail.UserRole)
+                                                        {
+                                                             <option selected="selected" value="@role.RoleName">@role.RoleName</option>
+                                                        }
+                                                        else
+                                                        {
+                                                            <option value="@role.RoleName">@role.RoleName</option>
+                                                        }
+                                                    }
+                                                </select>
+                                            </td>
+                                            <td class="text-center">
+                                                <span class="onoffswitch">
+                                                    <input type="checkbox" id="active_@indexing" name="UsersList[@indexing].IsActive" class="onoffswitch-checkbox" onchange="setvalue(this.id)" @(detail.IsActive == true ? "value=true" : "value=false") @(detail.IsActive == true ? "checked=checked" : "") />
+                                                    <label class="onoffswitch-label" for="active_@indexing">
+                                                        <span class="onoffswitch-inner" data-swchon-text="ON" data-swchoff-text="OFF"></span>
+                                                        <span class="onoffswitch-switch"></span>
+                                                    </label>
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control form-control-sm input-md makereadonly" id="country_@indexing" name="UsersList[@indexing].Country" value="@detail.Country" maxlength="10" />
+                                            </td>
+
+                                            <td>
+                                                <input type="text" class="form-control form-control-sm input-md makereadonly" id="phone_@indexing" name="UsersList[@indexing].PhoneNumber" value="@detail.PhoneNumber" maxlength="10" />
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>                
+                <div class="row pull-right">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        @*<button type="button" class="btn btn-primary"><i class="fa fa-times-circle-o">&nbsp;</i>Cancel</button>&emsp;*@
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-check-circle">&nbsp;</i>Save</button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        activeSideNav('settings');
+    });
+
+    function activeTabPill(element) {
+        currentelementId = $(element).attr('id')
+        $.each($("ul.nav-pills li"), function (key, value) {
+            $(value).removeClass('active')
+        });
+        $.each($("div.pill-content div.pill-pane"), function (key, value) {
+            $(value).removeClass('active')
+        });
+        $("#" + currentelementId).addClass("active");
+        $("#" + currentelementId + "Pane").addClass("active");
+    }
+
+    function setvalue(id) {
+        var checkbox = document.getElementById(id);
+        checkbox.value = checkbox.checked;
+    }
+
+    $('#CreateUserForm').submit(function () {
+        var selectedValues = $('#Company').val();
+        $('#SelectedCompanyList').val(selectedValues.join(','));
+        return true;
+    });
+
+    //$(function () {
+    //    $('#Company').multiselect({
+    //        includeSelectAllOption: true
+    //    });
+    //});  
+
+</script>

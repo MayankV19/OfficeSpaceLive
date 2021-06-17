@@ -1,0 +1,64 @@
+﻿@model OfficeSpace.Models.ChangePasswordModel
+@{
+    ViewBag.Title = "Index";
+   
+
+}
+
+<style>
+    .validationError {
+        font-size: 14px;
+        color: #ff0000;
+    }
+
+    span.field-validation-error {
+        color: red;
+    }
+</style>
+<div id="page-wrapper">
+    <div class="row">&nbsp;</div>
+    <div class="row">
+        <div class="col-lg-3 col-md-3 col-sm-3"></div>
+        <div class="panel col-lg-6 col-md-6 col-sm-6">
+            <div>
+                <div class="panel-body">
+                    @using (Html.BeginForm("Validate", "ChangePassword", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.HiddenFor(m => m.Username)
+                    <fieldset>
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <div class="form-group">
+                                    <label style="color: #5d5d5d"><span class="prelogin-text-font">Current Password</span></label>
+                                    @Html.PasswordFor(m => m.Password, new { @class = "form-control input-lg ", placeholder = "Current Password" })
+                                    @Html.ValidationMessageFor(m => m.Password)
+                                </div>
+                                <div class="form-group">
+                                    <label style="color: #5d5d5d"><span class="prelogin-text-font">New Password</span></label>
+                                    @Html.PasswordFor(m => m.NewPassword, new { @class = "form-control input-lg ", placeholder = "New Password" })
+                                    @Html.ValidationMessageFor(m => m.NewPassword)
+                                    @Html.ValidationMessage("", new { @class = "validationError" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row pull-right">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <button class="btn red-background-colour" type="submit"><span class="fa fa-sign-in"></span>&nbsp;Change Password</button>
+                            </div>
+                        </div>
+                    </fieldset>
+                    }
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3"></div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3"></div>
+    </div>
+</div>
+
+    <script>
+
+    </script>
+
+

@@ -1,0 +1,44 @@
+﻿<div class="header">
+    <div class="row" style="margin-left: 0px; margin-right: 0px">
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" style="padding-bottom: 0.5%">
+            <img src="~/Images/sis1.png" />
+        </div>        
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+            <img src="~/Images/logo.jpg" style=" float:right" />
+        </div>
+        <!--Uncomment for post login pages-->
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+            &nbsp;
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+            <div style="padding-top: 2%; color: darkgrey">
+                <div class="row">
+                    <!--Uncomment for post login pages-->
+                    @if (Session["CurrentUserName"] != null)
+                    {
+                        <div style="float: right;margin-top: 10%;margin-right:10px;color:#CA302E" class="prelogin-text-font">
+                            @Html.ActionLink("Sign Out", "LogOut", "Account", null, new { @class = "fa fa-sign-out" })
+                        </div>
+                    }
+
+                    <!--Uncomment for post login pages-->
+                    <div style="float: left; margin-top: 9%;border-right:1px solid grey;">
+                        @*<i class="fa fa-bell">&nbsp;&nbsp;</i>*@
+                    </div>
+                    <div style="float: left;margin-top: 9%;">
+                     
+                        @if (Session["CurrentUserName"] != null)
+                        {
+                            @Session["CurrentUserName"].ToString();
+                        }
+                    </div>
+                    @if (Session["CurrentUserName"] != null)
+                    {
+                        <div style="float: left;margin-top: 9%;">&nbsp;&nbsp;<img src="~/Images/RedButton.png" style="width:20px;height:20px;" /></div>
+                    }
+                    </div>
+            </div>
+        </div>
+
+    </div>
+</div>

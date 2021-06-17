@@ -1,0 +1,39 @@
+﻿
+.nav-side-helper {
+  overflow-y: scroll;
+  font-family: sans-serif !important;
+  font-size: 14px!important;
+  font-weight: 400!important;
+  background-color: #696c6f!important;
+  position: fixed!important;
+  top: 0px!important;
+  height: 100%!important;
+  color: #a0abbf;
+   width: 16.5%!important;
+    }
+.navsidemenu-footer {
+    margin-left: 50px;
+    margin-top: 200px;
+}
+.navside-menu-span-text {
+    margin-left: 15px;
+}
+.navsidemenu-header {
+    margin-left: 60px;
+    margin-top: 20px;
+}
+.navsidemenu-content {
+    margin-top: 55%;
+}
+.navsidemenu-content-li-text {
+    font-family: sans-serif !important;
+    color: #a0abbf;
+    font-size: 14px;
+    font-weight: 400;
+}
+.navsidemenu-content-li-ul-text {
+    font-family: sans-serif !important;
+    color: #a0abbf;
+    font-size: 12px;
+    font-weight: 400;
+}

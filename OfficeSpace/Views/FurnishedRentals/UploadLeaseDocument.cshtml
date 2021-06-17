@@ -1,0 +1,50 @@
+﻿@model OfficeSpace.Models.FurnishedRentalModel
+@{
+    ViewBag.Title = "UploadLeaseDocument";
+
+}
+<div id="page-wrapper">
+    <div class="panel" style="overflow:scroll;height:650px;">
+        <div class="panel-heading red-background-colour">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <h4><strong>Upload Lease Document</strong></h4>
+                </div>
+                <div class="col-lg-8 col-md-8 col-sm-8">&nbsp;</div>
+            </div>
+        </div>
+        <div class="panel-body">
+
+            @using (Html.BeginForm("UploadDocument", "FurnishedRentals", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <span>Select Lease Document:</span>
+                        <input type="file" name="postedFile" />
+                        <br />
+
+                        <span style="color:red;font-size:medium">Note - Please Upload the Lease Document in Single PDF File.</span>
+
+                        <hr />
+                        <div class="row" style="margin-left:10px;">
+
+
+                            <div class="form-group col-lg-3 col-md-3 col-sm-3">
+                                <button type="submit" name="Submit" value="Upload" class="btn btn-primary" style="margin-top:24px"><i class="fa fa-check-circle">&nbsp;</i>&nbsp;Upload Document</button>
+
+                            </div>
+
+
+                            <div class="form-group col-lg-3 col-md-3 col-sm-3">
+                                <button type="submit" class="btn btn-primary" value="Back" name="Submit" style="margin-top:24px"><i class="fa fa-backward">&nbsp;</i>&nbsp;Back</button>
+
+                            </div>
+
+                        </div>
+                        <br />
+                        <span style="color:green;font-size:large;font-weight:900">@ViewBag.Message</span>
+            }
+        </div>
+    </div>
+</div>
+
+
+

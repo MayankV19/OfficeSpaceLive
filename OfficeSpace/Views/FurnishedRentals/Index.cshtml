@@ -1,0 +1,504 @@
+﻿@{
+    string array = "[15, 30, 45, ALL]";
+}
+@model OfficeSpace.Models.FurnishedRentalModel
+@{
+    ViewBag.Title = "IndexView";
+}
+<link href="~/Content/bootstrap-table.min.css" rel="stylesheet" />
+<link href="~/ContentOld/Theme/Spinner.css" rel="stylesheet" />
+<link href="https://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/css/bootstrap-multiselect.css" rel="stylesheet" type="text/css" />
+<script src="https://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/js/bootstrap-multiselect.js" type="text/javascript"></script>
+@*<link href="~/ContentOld/jquery.dataTables.min.css" rel="stylesheet" />*@
+<script src="~/Scripts/jquery.dataTables.min.js"></script>
+<script src="~/dataTables.fixedColumns.min.js"></script>
+<link href="~/jquery.dataTables.min.css" rel="stylesheet" />
+<style>
+    /*.fixed-table-toolbar .columns-right {
+        margin-top: 0px !important;
+    }*/
+
+    /*.tblRentalDetailsWrapper {
+        width: 100%;
+        margin: 0 auto;
+    }*/
+
+    #tblRentalDetails th, td {
+        white-space: pre-line;
+    }
+
+    input.form-control {
+        width: auto;
+        padding: 2px 2px 2px 2px;
+        min-height: 40px;
+    }
+
+        input.form-control.SmallTextBox {
+            width: 50px;
+            padding: 2px 2px 2px 2px;
+            min-height: 40px;
+        }
+
+        input.form-control.MediumTextBox {
+            width: 150px;
+            padding: 2px 2px 2px 2px;
+            min-height: 40px;
+        }
+
+        input.form-control.NumericBox {
+            width: 100px;
+            padding: 2px 2px 2px 2px;
+            min-height: 40px;
+        }
+
+        input.form-control.DateTimeBox {
+            width: 130px;
+            padding: 2px 2px 2px 2px;
+            min-height: 40px;
+        }
+
+        input.form-control.MobileBox {
+            width: 130px;
+            padding: 2px 2px 2px 2px;
+            min-height: 40px;
+        }
+
+    .overlay {
+        position: fixed; /* Sit on top of the page content */
+        display: none; /* Hidden by default */
+        width: 100%; /* Full width (cover the whole page) */
+        height: 100%; /* Full height (cover the whole page) */
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+        z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+        cursor: pointer; /* Add a pointer on hover */
+    }
+
+    .OverlayText {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        font-size: 30px;
+        font-stretch: wider;
+        color: yellow;
+        transform: translate(-50%,-50%);
+        -ms-transform: translate(-50%,-50%);
+    }
+
+    table.dataTable thead .sorting:after,
+    table.dataTable thead .sorting:before,
+    table.dataTable thead .sorting_asc:after,
+    table.dataTable thead .sorting_asc:before,
+    table.dataTable thead .sorting_asc_disabled:after,
+    table.dataTable thead .sorting_asc_disabled:before,
+    table.dataTable thead .sorting_desc:after,
+    table.dataTable thead .sorting_desc:before,
+    table.dataTable thead .sorting_desc_disabled:after,
+    table.dataTable thead .sorting_desc_disabled:before {
+        bottom: .5em;
+    }
+</style>
+
+
+
+
+
+
+
+<div id="page-wrapper">
+    <div class="panel">
+        <div>
+            <div class="panel-heading red-background-colour">
+                @*<div class="row">*@
+                @*<div class="col-lg-4 col-md-4 col-sm-4">*@
+                <h4><strong>Furnished Rentals </strong></h4>
+                @*</div>*@
+                @*<div class="col-lg-8 col-md-8 col-sm-8"></div>*@
+                @*</div>*@
+            </div>
+            @*<div class="panel-body tableLoader" style="text-align:left;">*@
+
+            @using (Html.BeginForm("Index", "FurnishedRentals", FormMethod.Post, new { id = "FurnishedRentals", @class = "bs-example " }))
+            {
+                <table cellpadding="2" cellspacing="2" style="width:100%; heig
+    ht:auto;vertical-align:top;">
+                    <tr>
+                        <td class="text-left" width="30%">
+                            <label for="company" style="color:black">Select Company</label>@Html.ListBoxFor(m => m.SelectedCompanyIds, Model.Companies, new { @class = "listbox", @id = "CompanyListBox", style = "width: 250px;" })
+                        </td>
+                        <td class="text-center" width="40%">
+                            <a href="@Url.Action("DownloadFile", "FurnishedRentals",new { Flag = Model.Flag,companyName = Model.Company})" title="Export to Excel">
+                                <i class="fa fa-file-excel-o" aria-hidden="true"></i>Export to Excel
+                            </a>
+                        </td>
+                        <td class="text-right" width="30%">
+                            <button type="button" id="UpdateButton" class="btn btn-primary"><i class="fa fa-check-circle">&nbsp;</i>Update</button>
+                        </td>
+                    </tr>
+                </table>
+
+                @*class= "table table-striped table-bordered table-sm "*@
+                @*<div class="table-responsive" style="overflow-y:scroll;">*@
+                <table id="tblRentalDetails" class="table table-responsive"
+                       data-toggle="table"
+                       data-toolbar="#toolbar"
+                       data-search="false"
+                       data-show-columns="false"
+                       data-minimum-count-columns="2"
+                       data-pagination="true"
+                       data-id-field="ID"
+                       data-page-size="@ViewBag.pageSize"
+                       data-page-list="@array"
+                       data-show-footer="false"
+                       data-row-style="rowStyle"
+                       @*data-fixed-columns="true"
+                                   data-fixed-columns-left="4"
+                                   data-fixed-columns-right="0"*@>
+
+                    @*class="table-heading-font"*@
+                    <thead>
+                        <tr>
+                            <th class="text-center">SL. No.</th>
+                            <th class="text-center">Date</th>
+                            <th class="text-center">City</th>
+                            <th class="text-center">Company</th>
+                            <th class="text-center">BO / RO/ COA / CO</th>
+                            <th class="text-center">Regional Office</th>
+                            <th class="text-center">Office Name</th>
+                            <th class="text-center">
+                                Office Location / Address
+
+                            </th>
+                            <th class="text-center">
+                                Rent / Owned
+                            </th>
+
+                            <th class="text-center">
+                                Lease Start Date
+                            </th>
+                            <th class="text-center">
+                                Lease Starting Rental Amount (INR)
+                            </th>
+                            <th class="text-center">
+                                Rental Escalation %
+                            </th>
+                            <th class="text-center">
+                                Escalation Period yrs ( Yly / 3Yrs / No Escalation)
+                            </th>
+                            <th class="text-center">
+                                Lease Period (In Years)
+                            </th>
+                            <th class="text-center">
+                                Lease Closure Date
+                            </th>
+                            <th class="text-center">
+                                Security Deposit paid (INR)
+                            </th>
+                            <th class="text-center">
+                                Advance Rental Paid (INR)
+                            </th>
+                            <th class="text-center">
+                                Total Amount onhold with owner
+                            </th>
+                            <th class="text-center">
+                                Fitouts Provided by [Self / Owner]
+                            </th>
+                            <th class="text-center">
+                                Number Of Car Parking Allotted
+                            </th>
+                            <th class="text-center">
+                                Notice Period (In Months)
+                            </th>
+                            <th class="text-center">
+                                Signage covering Roads
+                            </th>
+                            <th class="text-center">
+                                Number of Employee
+                            </th>
+                            <th class="text-center">
+                                Super BuiltUp Area (Sq.Ft.)
+                            </th>
+                            <th class="text-center">
+                                BuiltUp Area (Sq.Ft.)
+                            </th>
+                            <th class="text-center">
+                                Carpet Area (Sq.Ft.)
+                            </th>
+                            <th class="text-center">
+                                Rental Area (Sq.Ft.)
+                            </th>
+                            <th class="text-center">
+                                Present Rental Cost (INR / Sq.Ft)
+                            </th>
+                            <th class="text-center">
+                                Present Monthly Rental Cost (INR)
+                            </th>
+                            <th class="text-center">
+                                Present Monthly Billing (INR)
+                            </th>
+                            <th class="text-center">
+                                Rental Cost % to Billing
+                            </th>
+                            <th class="text-center">
+                                Present Monthly Maintenance Cost (INR)
+                            </th>
+                            <th class="text-center">
+                                Present Avg Monthly Maintenance Cost (INR)
+                            </th>
+                            <th class="text-center">
+                                Present Avg Monthly Electricity Cost(INR)
+                            </th>
+                            <th class="text-center">
+                                Present Avg Monthly All Other Costs(INR)
+                            </th>
+                            <th class="text-center">
+                                Total Monthly Avg Costs On Rental & Related (INR)
+                            </th>
+                            <th class="text-center">
+                                Name
+                            </th>
+                            <th class="text-center">
+                                Email
+                            </th>
+                            <th class="text-center">
+                                Mobile
+                            </th>
+                            <th class="text-center">
+                                Remarks
+                            </th>
+
+                            <th class="text-center">
+                                Is Document Uploaded
+                            </th>
+                            <th class="text-center">Action</th>
+                            <th class="text-center">Update</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var detail in Model.BranchDataList)
+                        {
+                            var indexing = Model.BranchDataList.IndexOf(detail);
+
+                            <tr>
+
+                                <td class="text-center"> @detail.ID </td>
+                                <td class="=text-center"><input class="form-control DateTimeBox" type="date" value="@detail.Date"></td>
+                                <td class="text-center"> <input class="form-control MediumTextBox" type="text" value="@detail.City" />   </td>
+                                @*<td class="text-center"><input class="form-control MediumTextBox" type="text" value="@detail.Company" /> </td>*@
+                                <td class="text-center">@detail.Company</td>
+                                <td class="text-center"><input class="form-control SmallTextBox" type="text" value="@detail.OfficeType" />  </td>
+                                <td class="text-center"><input class="form-control MediumTextBox" type="text" value="@detail.RegionalOffice" />  </td>
+                                <td class="text-center"><textarea rows="2" cols="30">@detail.OfficeName </textarea>   </td>
+                                <td class="text-center"> <textarea rows="2" cols="30">@detail.Address </textarea> </td>
+                                <td class="text-center"> <input class="form-control SmallTextBox" type="text" value="@detail.PropertyType" />  </td>
+                                <td class="text-center"><input class="form-control DateTimeBox" type="date" value="@detail.LeaseStartDate" />   </td>
+                                <td class="text-center"><input class="form-control NumericBox" type="number" value="@detail.LeaseStartingAmount" />  </td>
+                                <td class="text-center"> <input class="form-control SmallTextBox" type="number" value="@detail.RentalEscallation" onchange="(function(el){el.value=parseFloat(el.value).toFixed(2);})(this)" min="0.00" max="100.00" step="0.01" /> </td>
+                                <td class="text-center"> <input class="form-control SmallTextBox" type="number" value="@detail.EscallationPeriod" /> </td>
+                                <td class="text-center"> <input class="form-control SmallTextBox" type="number" value="@detail.LeasePeriod" />   </td>
+                                <td class="text-center"><input class="form-control DateTimeBox" type="date" value="@detail.LeaseClouserDate" />   </td>
+                                <td class="text-center"> <input class="form-control NumericBox" type="number" value="@detail.SecurityDeposit" />   </td>
+                                <td class="text-center"> <input class="form-control NumericBox" type="number" value="@detail.AdvanceRental" /> </td>
+                                <td class="text-center"> <input class="form-control NumericBox" type="number" value="@detail.TotalAmountHoldWithOwner" /> </td>
+                                <td class="text-center"> <input class="form-control NumericBox" type="number" value="@detail.FitOuts" />   </td>
+                                <td class="text-center"> <input class="form-control NumericBox" type="number" value="@detail.NoOfCarParking" /> </td>
+                                <td class="text-center"> <input class="form-control NumericBox" type="number" value="@detail.NoticePeriod" />  </td>
+                                <td class="text-center"> <input class="form-control NumericBox" type="number" value="@detail.Signage" />  </td>
+                                <td class="text-center"> <input class="form-control NumericBox" type="number" value="@detail.NoOfEmployee" />  </td>
+                                <td class="text-center"> <input class="form-control NumericBox" type="number" value="@detail.SuperBuiltUpArea" />  </td>
+                                <td class="text-center"> <input class="form-control NumericBox" type="number" value="@detail.BuiltUpArea" /> </td>
+                                <td class="text-center"> <input class="form-control NumericBox" type="number" value="@detail.CarpetArea" /> </td>
+                                <td class="text-center"> <input class="form-control NumericBox" type="number" value="@detail.RentalArea" /> </td>
+                                <td class="text-center"> <input class="form-control NumericBox" type="number" value="@detail.PresentRentalCost" />   </td>
+                                <td class="text-center"> <input class="form-control NumericBox" type="number" value="@detail.PresentMonthlyRentalCost" />   </td>
+                                <td class="text-center"> <input class="form-control NumericBox" type="number" value="@detail.PresentMonthlyBilling" />   </td>
+                                <td class="text-center"> <input class="form-control NumericBox" type="number" value="@detail.RenatlCostPercentage" onchange="(function(el){el.value=parseFloat(el.value).toFixed(2);})(this)" min="0.00" max="100.00" step="0.01" /> </td>
+                                <td class="text-center"> <input class="form-control NumericBox" type="number" value="@detail.MonthlyMaintenanceCost" /> </td>
+                                <td class="text-center"> <input class="form-control NumericBox" type="number" value="@detail.AvgMonthltMaintenanceCost" />   </td>
+                                <td class="text-center"> <input class="form-control NumericBox" type="number" value="@detail.MonthlyElectricityCost" /> </td>
+                                <td class="text-center"> <input class="form-control NumericBox" type="number" value="@detail.MonthlyAllOtherCosts" />  </td>
+                                <td class="text-center"> <input class="form-control NumericBox" type="number" value="@detail.TotalMonthlyRentalCost" />  </td>
+                                <td class="text-center"><input type="text" class="form-control" value="@detail.Name" />  </td>
+                                <td class="text-center"><input type="text" class="form-control" value="@detail.Email" />  </td>
+                                <td class="text-center"><input type="number" class="form-control MobileBox" maxlength="15" value="@detail.Mobile" />  </td>
+                                <td class="text-center"> <textarea rows="2" cols="30">@detail.Remarks </textarea> </td>
+                                <td class="text-center"> @detail.IsDocumentUploded  </td>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(detail.IsDocumentUploded) && detail.IsDocumentUploded.Trim().ToLower() == "yes")
+                                    {
+                                        @Html.ActionLink("View Lease Document", "DownloadLeaseFile", new { fileName = @detail.DocumentName }, new { @target = "_blank" })
+                                    }
+                                    else
+                                    {
+                                        @Html.ActionLink("Upload Lease Document", "UploadLeaseDocument", new { RequestId = @detail.AutoID })
+                                    }
+                                </td>
+                                <td class="text-center"><input type="checkbox" id="chk_@detail.AutoID" name="chk_@detail.AutoID" class="onoffswitch-checkbox" /></td>
+
+                                @*<td class="text-center">
+        @if (detail.IsDocumentUploded == "Yes")
+        {
+        @Html.ActionLink("Click Here", "DownloadLeaseFile", new { fileName = @detail.DocumentName }, new { @target = "_blank" })
+        }
+         </td>
+
+        <td class="text-center">
+        @if (detail.IsDocumentUploded == "No")
+        { @Html.ActionLink("Click Here", "UploadLeaseDocument", new { RequestId = @detail.AutoID })
+        }
+        </td>*@
+
+
+                              
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+
+                @*</div>*@
+
+            }
+            @*</div>*@
+        </div>
+        <div id="wait" class="overlay"><div class="OverlayText">Processing please wait...</div></div>
+    </div>
+    @*</div>*@
+
+
+    <script src="~/Scripts/bootstrap/bootstrap-table.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            var companies = $('.listbox');
+            companies.multiselect({
+                includeSelectAllOption: true,
+                onSelectAll: function (checked) {
+                    $("form").first().submit();
+                },
+                onChange: function (element, checked) {
+                    $("form").first().submit();
+
+                },
+
+
+
+            }
+
+            );
+
+
+
+
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            debugger;
+            activeSideNav('FullfilledOffices');
+            $("#CompanyList").change(function () {
+                this.form.submit();
+            })
+            $('#tblRentalDetails').DataTable({
+                "scrollX": true,
+                "scrollY": 350,
+                "paging": false,
+                "filter": false,
+                "info": false,
+            });
+
+            $('#UpdateButton').click(function () {
+                document.getElementById("wait").style.display = "block";
+                var FurnitureData = [];
+
+                $("#tblRentalDetails input[type=checkbox]:checked").each(function () {
+                    debugger;
+                    var row = $(this).closest("tr")[0];
+                    var obj = {};
+
+                    obj.Id = row.cells[42].querySelector("input[type='checkbox']").id.replace("chk_", "");
+                    obj.Date = row.cells[1].querySelector("input[type='date']").value;
+                    obj.City = row.cells[2].querySelector("input[type='text']").value;
+                   // obj.Company= row.cells[3].innertext; //row.cells[3].querySelector("input[type='text']").value;
+                    obj.OfficeType = row.cells[4].querySelector("input[type='text']").value;
+                    obj.RegionalOffice = row.cells[5].querySelector("input[type='text']").value;
+                    obj.OfficeName = row.cells[6].querySelector("textarea").value;
+                    obj.Address = row.cells[7].querySelector("textarea").value;
+                    obj.PropertyType = row.cells[8].querySelector("input[type='text']").value
+                    obj.LeaseStartDate = row.cells[9].querySelector("input[type='date']").value;
+                    obj.LeaseStartingAmount = row.cells[10].querySelector("input[type='number']").value;
+                    obj.RentalEscallation = row.cells[11].querySelector("input[type='number']").value;
+                    obj.EscallationPeriod = row.cells[12].querySelector("input[type='number']").value;
+                    obj.LeasePeriod = row.cells[13].querySelector("input[type='number']").value;
+                    obj.LeaseClouserDate = row.cells[14].querySelector("input[type='date']").value;
+                    obj.SecurityDeposit = row.cells[15].querySelector("input[type='number']").value;
+                    obj.AdvanceRental = row.cells[16].querySelector("input[type='number']").value;
+                    obj.TotalAmountHoldWithOwner = row.cells[17].querySelector("input[type='number']").value;
+                    obj.FitOuts = row.cells[18].querySelector("input[type='number']").value;
+                    obj.NoOfCarParking = row.cells[19].querySelector("input[type='number']").value;
+                    obj.NoticePeriod = row.cells[20].querySelector("input[type='number']").value;
+                    obj.Signage = row.cells[21].querySelector("input[type='number']").value;
+                    obj.NoOfEmployee = row.cells[22].querySelector("input[type='number']").value;
+                    obj.SuperBuiltUpArea = row.cells[23].querySelector("input[type='number']").value;
+                    obj.BuiltUpArea = row.cells[24].querySelector("input[type='number']").value;
+                    obj.CarpetArea = row.cells[25].querySelector("input[type='number']").value;
+                    obj.RentalArea = row.cells[26].querySelector("input[type='number']").value;
+                    obj.PresentRentalCost = row.cells[27].querySelector("input[type='number']").value;
+                    obj.PresentMonthlyRentalCost = row.cells[28].querySelector("input[type='number']").value;
+                    obj.PresentMonthlyBilling = row.cells[29].querySelector("input[type='number']").value;
+                    obj.RenatlCostPercentage = row.cells[30].querySelector("input[type='number']").value;
+                    obj.MonthlyMaintenanceCost = row.cells[31].querySelector("input[type='number']").value;
+                    obj.AvgMonthltMaintenanceCost = row.cells[32].querySelector("input[type='number']").value;
+                    obj.MonthlyElectricityCost = row.cells[33].querySelector("input[type='number']").value;
+                    obj.MonthlyAllOtherCosts = row.cells[34].querySelector("input[type='number']").value;
+                    obj.TotalMonthlyRentalCost = row.cells[35].querySelector("input[type='number']").value;
+                    obj.Name = row.cells[36].querySelector("input[type='text']").value;
+                    obj.Email = row.cells[37].querySelector("input[type='text']").value;
+                    obj.Mobile = row.cells[38].querySelector("input[type='number']").value;
+                    obj.Remarks = row.cells[39].querySelector("textarea").value;
+                    FurnitureData.push(obj);
+                });
+                debugger;
+
+                if (FurnitureData != null && FurnitureData != undefined && FurnitureData.length > 0) {
+                    var parameterData = JSON.stringify(FurnitureData);
+
+                    $.post("/FurnishedRentals/UpdateFurnitureDetails", { updatedData: parameterData }, function (data) {
+                        if (data != null && data.Result != null) {
+                            if (data.Result == 'Success') {
+                                alert('Data updated succesfully !!');
+                                location.reload();
+
+
+                            }
+                            else {
+                                alert('Update of furniture data was failed. Please try after sometimes.');
+
+                            }
+                        }
+                        else {
+                            alert('Update of furniture data was failed. Please try after sometimes.');
+                        }
+                        document.getElementById("wait").style.display = "none";
+
+                    });
+                }
+                else {
+                    document.getElementById("wait").style.display = "none";
+
+                    alert('Please select any row to continue.');
+                    return false;
+
+                }
+            });
+        });
+
+        function setvalue(id) {
+            var checkbox = document.getElementById(id);
+            checkbox.value = checkbox.checked;
+        }
+
+    </script>

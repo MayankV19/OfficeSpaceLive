@@ -1,0 +1,7 @@
+﻿prelogin-body {
+    background-image: url('~/themes/base/images/loginBackground.jpg'); /*You will specify your image path here.*/
+        background-size: cover;
+        background-position: top center !important;
+        background-repeat: no-repeat !important;
+        background-attachment: fixed;
+}

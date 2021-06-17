@@ -1,0 +1,58 @@
+﻿@model OfficeSpace.Models.LoginModel
+@{
+    ViewBag.Title = "Login";
+}
+<style>
+    .validationError {
+        font-size: 14px;
+        color: #ff0000;
+    }
+
+    span.field-validation-error {
+        color: red;
+    }
+
+</style>
+<div>
+    <div class="row" style="padding-top: 9%; margin-left: 0px; margin-right: 0px;">
+        <div class="col-lg-4 col-md-4 col-sm-4"></div>
+        <div class="col-lg-5 col-md-5 col-sm-5">
+            @*<div class="row" style="text-align: center">
+                <span class="login-font"><img style="width:400px;height:90px" src="~/Images/logo.jpg" /></span>
+            </div>*@
+            <br/>
+            <div class="well" style="background-color: white; border-radius: 8px;">
+                @using (Html.BeginForm("Validate","Account",FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    <fieldset>
+                        <div class="form-group" style="padding-left: 18px; padding-right: 18px; padding-top: 20px">
+                            <label style="color: #5d5d5d"><span class="prelogin-text-font">USER&nbsp;NAME</span></label>
+                            @Html.TextBoxFor(m => m.Username, new { @class = "form-control input-lg ", placeholder = "Username..." })
+                            @Html.ValidationMessageFor(m => m.Username)
+                        </div>
+                        <div class="form-group" style="padding-left: 18px; padding-right: 18px">
+                            <label style="color: #5d5d5d"><span class="prelogin-text-font">PASSWORD</span></label>
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control input-lg ", placeholder = "Password..." })
+                            @Html.ValidationMessageFor(m => m.Password)
+                            @Html.ValidationMessage("", new { @class = "validationError" })
+                          
+                        </div>
+                        <div class="form-group">
+                            <div class="pull-left prelogin-text-font forgot-password"><a href="~/Account/ForgotPassword" class="forgot-password">Forgot Password</a></div>
+                            <div class="pull-right" style="padding-right: 22px; padding-top: 18px">
+                                <button class="btn red-background-colour" type="submit"><span class="fa fa-sign-in"></span>&nbsp;Log&nbsp;In</button>
+                            </div>
+                        </div>
+                    </fieldset>
+                }
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3"></div>
+    </div>
+</div>
+
+<script>
+    
+</script>
+

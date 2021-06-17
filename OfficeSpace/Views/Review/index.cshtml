@@ -1,0 +1,221 @@
+﻿@{
+    string array = "[4, 8, ALL]";
+
+}
+@model OfficeSpace.Models.ReviewModel
+@{
+    /**/
+
+    ViewBag.Title = "index";
+}
+
+<link href="~/Content/bootstrap-table.min.css" rel="stylesheet" />
+<link href="~/ContentOld/Theme/Spinner.css" rel="stylesheet" />
+<style>
+    .fixed-table-toolbar .columns-right {
+        margin-top: 0px !important;
+    }
+
+    .fixed-table-toolbar .search {
+        margin-top: 0px !important;
+    }
+
+    .fixed-table-toolbar .columns label {
+        padding: 0px !important;
+        padding-left: 10px !important;
+    }
+
+    table tr {
+        cursor: pointer;
+    }
+
+    table td {
+        white-space: nowrap;
+        overflow: hidden;
+    }
+</style>
+
+
+<div id="page-wrapper">
+    <div class="panel">
+        <div style="height:650px;">
+            <div class="panel-heading red-background-colour">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-4">
+                        <h4><strong>Review Requests</strong></h4>
+                    </div>
+                    <div class="col-lg-8 col-md-8 col-sm-8">&nbsp;</div>
+                </div>
+            </div>
+            <div class="panel-body tableLoader" style="text-align:center">
+                <div class="col-md-12">
+                    @using (Html.BeginForm("UpdateBranchRequest", "Review", FormMethod.Post, new { @class = "form-font" }))
+                    {
+                        <div class="table-responsive" style="overflow-y:scroll; height:500px">
+                            <table id="table" class="boot-table table-striped" style="vertical-align:top"
+                                   data-toggle="table"
+                                   data-toolbar="#toolbar"
+                                   data-search="true"
+                                   data-show-columns="true"
+                                   data-minimum-count-columns="2"
+                                   data-pagination="true"
+                                   data-id-field="ID"
+                                   data-page-size="@ViewBag.pageSize"
+                                   data-page-list="@array"
+                                   data-show-footer="false"
+                                   data-row-style="rowStyle">
+                                <thead>
+                                    <tr class="table-heading-font">
+                                        <th data-sortable="true">S.N.</th>
+                                        <th data-sortable="true">CreationDate</th>
+                                        <th data-sortable="true">City</th>
+                                        <th data-sortable="true">Company</th>
+                                        <th data-sortable="true">Type</th>
+                                        <th data-sortable="true">Status</th>
+
+                                        <th data-sortable="true">Request Type</th>
+                                        <th data-sortable="true">Branch /R.O.</th>
+                                        <th data-sortable="true">Rent /Buy</th>
+
+                                        <th data-sortable="true">Lease_Renew Date</th>
+                                        <th data-sortable="true">Requirement Date</th>
+                                        <th data-sortable="true">FitOuts</th>
+                                        <th data-sortable="true">Name</th>
+                                        <th data-sortable="true">Email</th>
+                                        <th data-sortable="true">Mobile No.</th>
+                                        <th data-sortable="true">Location</th>
+                                        <th data-sortable="true">Signage</th>
+                                        <th data-sortable="true">Employee</th>
+                                        <th data-sortable="true">SuperBuilt UpArea(Sq.ft.)</th>
+                                        <th data-sortable="true">BuiltUp Area(Sq.ft.)</th>
+                                        <th data-sortable="true">Carpet Area(Sq.ft.)</th>
+                                        <th data-sortable="true">Rental Area(Sq.ft.)</th>
+                                        <th data-sortable="true">Rental Cost(INR/Sq.ft.)</th>
+                                        <th data-sortable="true">Total_Monthly Rental_Cost(INR)</th>
+                                        <th data-sortable="true">Security Deposit(INR)</th>
+                                        <th data-sortable="true">Car Park</th>
+                                        <th data-sortable="true">Remarks</th>
+                                        <th data-sortable="true">Initiated</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var detail in Model.BranchDataList)
+                                    {
+                                        var indexing = Model.BranchDataList.IndexOf(detail);
+
+                                    <tr>
+                                        <td>
+                                            <input type="hidden" id="ID_@indexing" name="BranchDataList[@indexing].ID" value="@detail.ID" />
+                                            @Html.HiddenFor(m => m.BranchDataList[indexing].ID)
+                                            @Html.HiddenFor(m => m.BranchDataList[indexing].CreationDate)
+                                            @Html.HiddenFor(m => m.BranchDataList[indexing].DataType)
+                                            @Html.HiddenFor(m => m.BranchDataList[indexing].Status)
+                                            @Html.HiddenFor(m => m.BranchDataList[indexing].RequestID)
+                                            @Html.HiddenFor(m => m.BranchDataList[indexing].Company)
+                                            @Html.HiddenFor(m => m.BranchDataList[indexing].SelectedMenu)
+                                            @Html.HiddenFor(m => m.BranchDataList[indexing].BuisnessType)
+                                            @Html.HiddenFor(m => m.BranchDataList[indexing].AllocationType)
+                                            @Html.HiddenFor(m => m.BranchDataList[indexing].City)
+                                            @Html.HiddenFor(m => m.BranchDataList[indexing].ProposedDateofRenewal)
+                                            @Html.HiddenFor(m => m.BranchDataList[indexing].DateFromWhich)
+                                            @Html.HiddenFor(m => m.BranchDataList[indexing].Fitouts)
+                                            @detail.RequestID
+                                        </td>
+                                        <td> @detail.CreationDate </td>
+                                        <td> @detail.City </td>
+                                        <td> @detail.Company   </td>
+                                        <td> @detail.DataType </td>
+                                        <td> @detail.Status  </td>
+
+                                        <td> @detail.SelectedMenu  </td>
+                                        <td> @detail.BuisnessType  </td>
+                                        <td> @detail.AllocationType  </td>
+
+                                        <td> @detail.ProposedDateofRenewal </td>
+                                        <td> @detail.DateFromWhich </td>
+                                        <td> @detail.Fitouts </td>
+                                        <td> @detail.CreatedByName   </td>
+                                        <td> @detail.CreatedByEmail   </td>
+                                        <td> @detail.CreatedByPhone   </td>
+                                        @if (detail.DataType == "Existing")
+                                        {
+                                            <td> <input type="text" class="form-control form-control-sm input-md makereadonly" id="existinglocation_@indexing" name="BranchDataList[@indexing].ExistingLocation" value="@detail.ExistingLocation" maxlength="100" /></td>
+                                            <td> <input type="text" class="form-control form-control-sm input-md makereadonly" id="signage_@indexing" name="BranchDataList[@indexing].Signage" value="@detail.Signage" maxlength="100" /></td>
+                                            <td> <input type="text" class="form-control form-control-sm input-md makereadonly" id="noofpersons_@indexing" name="BranchDataList[@indexing].NoOfPersons" value="@detail.NoOfPersons" maxlength="10" /></td>
+                                            <td> <input type="text" class="form-control form-control-sm input-md makereadonly" id="superbuiltup_@indexing" name="BranchDataList[@indexing].SuperBuiltUp" value="@detail.SuperBuiltUp" maxlength="10" /></td>
+                                            <td> <input type="text" class="form-control form-control-sm input-md makereadonly" id="builtup_@indexing" name="BranchDataList[@indexing].BuiltUp" value="@detail.BuiltUp" maxlength="10" /></td>
+                                            <td> <input type="text" class="form-control form-control-sm input-md makereadonly" id="carpetarea_@indexing" name="BranchDataList[@indexing].CarpetArea" value="@detail.CarpetArea" maxlength="10" /></td>
+                                            <td> <input type="text" class="form-control form-control-sm input-md makereadonly" id="rentalarea_@indexing" name="BranchDataList[@indexing].RentalArea" value="@detail.RentalArea" maxlength="10" /></td>
+                                            <td> <input type="text" class="form-control form-control-sm input-md makereadonly" id="costpersquarefeet_@indexing" name="BranchDataList[@indexing].CostPerSquareFeet" value="@detail.CostPerSquareFeet" maxlength="10" /></td>
+                                            <td> <input type="text" class="form-control form-control-sm input-md makereadonly" id="ExistingMonthlyCost_@indexing" name="BranchDataList[@indexing].ExistingMonthlyCost" value="@detail.ExistingMonthlyCost" maxlength="10" /></td>
+                                            <td> <input type="text" class="form-control form-control-sm input-md makereadonly" id="securitydeposit_@indexing" name="BranchDataList[@indexing].SecurityDeposit" value="@detail.SecurityDeposit" maxlength="10" /></td>
+                                            <td> <input type="text" class="form-control form-control-sm input-md makereadonly" id="carpark_@indexing" name="BranchDataList[@indexing].CarPark" value="@detail.CarPark" maxlength="10" /></td>
+                                            <td> <input type="text" class="form-control form-control-sm input-md makereadonly" id="remarks_@indexing" name="BranchDataList[@indexing].Remarks" value="@detail.Remarks" maxlength="800" /></td>
+                                        }
+                                        else
+                                        {
+                                            <td> <input type="text" class="form-control form-control-sm input-md makereadonly" id="proposedlocation_@indexing" name="BranchDataList[@indexing].ProposedLocation" value="@detail.ProposedLocation" maxlength="100" /></td>
+                                            <td> <input type="text" class="form-control form-control-sm input-md makereadonly" id="proposedsignage_@indexing" name="BranchDataList[@indexing].ProposedSignage" value="@detail.ProposedSignage" maxlength="100" /></td>
+                                            <td> <input type="text" class="form-control form-control-sm input-md makereadonly" id="proposednoofpersons_@indexing" name="BranchDataList[@indexing].ProposedNoOfPersons" value="@detail.ProposedNoOfPersons" maxlength="10" /></td>
+                                            <td> <input type="text" class="form-control form-control-sm input-md makereadonly" id="proposedsuperbuiltup_@indexing" name="BranchDataList[@indexing].ProposedSuperBuiltUp" value="@detail.ProposedSuperBuiltUp" maxlength="10" /></td>
+                                            <td> <input type="text" class="form-control form-control-sm input-md makereadonly" id="proposedbuiltup_@indexing" name="BranchDataList[@indexing].ProposedBuiltUp" value="@detail.ProposedBuiltUp" maxlength="10" /></td>
+                                            <td> <input type="text" class="form-control form-control-sm input-md makereadonly" id="proposedcarpetarea_@indexing" name="BranchDataList[@indexing].ProposedCarpetArea" value="@detail.ProposedCarpetArea" maxlength="10" /></td>
+                                            <td> <input type="text" class="form-control form-control-sm input-md makereadonly" id="proposedrentalarea_@indexing" name="BranchDataList[@indexing].ProposedRentalArea" value="@detail.ProposedRentalArea" maxlength="10" /></td>
+                                            <td> <input type="text" class="form-control form-control-sm input-md makereadonly" id="proposedcostpersquarefeet_@indexing" name="BranchDataList[@indexing].ProposedCostPerSquareFeet" value="@detail.ProposedCostPerSquareFeet" maxlength="10" /></td>
+                                            <td> <input type="text" class="form-control form-control-sm input-md makereadonly" id="proposedmonthlycost_@indexing" name="BranchDataList[@indexing].ProposedMonthlyCost" value="@detail.ProposedMonthlyCost" maxlength="10" /></td>
+                                            <td> <input type="text" class="form-control form-control-sm input-md makereadonly" id="proposedsecuritydeposit_@indexing" name="BranchDataList[@indexing].ProposedSecurityDeposit" value="@detail.ProposedSecurityDeposit" maxlength="10" /></td>
+                                            <td> <input type="text" class="form-control form-control-sm input-md makereadonly" id="proposedcarpark_@indexing" name="BranchDataList[@indexing].ProposedCarPark" value="@detail.ProposedCarPark" maxlength="10" /></td>
+                                            <td> <input type="text" class="form-control form-control-sm input-md makereadonly" id="proposedremarks_@indexing" name="BranchDataList[@indexing].ProposedRemarks" value="@detail.ProposedRemarks" maxlength="800" /></td>
+                                        }
+
+                                        <td class="text-center">
+                                            @if (detail.DataType != "Existing")
+                                            {
+                                                <span class="onoffswitch">
+                                                    <input type="checkbox" id="initaiated_@indexing" name="BranchDataList[@indexing].IsInitaited" class="onoffswitch-checkbox" onchange="setvalue(this.id)" @(detail.IsInitaited == true ? "value=true" : "value=false") @(detail.IsInitaited == true ? "checked=checked" : "") />
+                                                    <label class="onoffswitch-label" for="active_@indexing">
+                                                        <span class="onoffswitch-inner" data-swchon-text="ON" data-swchoff-text="OFF"></span>
+                                                        <span class="onoffswitch-switch"></span>
+                                                    </label>
+                                                </span>
+                                            }
+                                        </td>
+
+
+                                    </tr>
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="row pull-right">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <button type="submit" class="btn btn-primary"><i class="fa fa-check-circle">&nbsp;</i>Update</button>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="~/Scripts/bootstrap/bootstrap-table.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        activeSideNav('reviewrequest');
+    });
+
+    function setvalue(id) {
+        var checkbox = document.getElementById(id);
+        checkbox.value = checkbox.checked;
+    }
+
+</script>
+
+
+

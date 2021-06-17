@@ -1,0 +1,57 @@
+﻿.nav-side-menu {
+    width: 16.5%;
+    height: 100%;
+}
+
+.nav-side-menu-logo {
+    width: 7.1%;
+    height: 11.3%;
+}
+
+.nav-side-menu-logout {
+    font-family: FontAwesome;
+    color: #a0abbf;
+    font-size: 13px; /* Approximation due to font substitution */
+    font-weight: 400;
+    line-height: 54px; /* Approximation due to font substitution */
+    text-align: left;
+    font-family: sans-serif !important;
+    color: #a0abbf;
+    font-size: 13px; /* Approximation due to font substitution */
+    font-weight: 700;
+    font-style: italic;
+    line-height: 54px; /* Approximation due to font substitution */
+    text-align: left;
+}
+
+.nav-side-menu-li {
+    font-family: sans-serif !important;
+    color: #a0abbf;
+    font-size: 14px; /* Approximation due to font substitution */
+    font-weight: 400;
+    line-height: 54px; /* Approximation due to font substitution */
+    text-align: left;
+}
+
+.nav-side-menu-li-active {
+    font-family: sans-serif !important;
+    color: #ffffff;
+    font-size: 14px; /* Approximation due to font substitution */
+    font-weight: 400;
+    line-height: 54px; /* Approximation due to font substitution */
+    text-align: left;
+}
+
+.nav-side-menu-bottom {
+    font-family: sans-serif !important;
+    color: #ffffff;
+    font-size: 12px; /* Approximation due to font substitution */
+    font-weight: 400;
+    line-height: 34px; /* Approximation due to font substitution */
+    text-align: left;
+}
+
+.nav-side-menu-bottom-image {
+    width: 9.7%;
+    height: 15.8%;
+}

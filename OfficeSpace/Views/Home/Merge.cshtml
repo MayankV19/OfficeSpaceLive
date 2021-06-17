@@ -1,0 +1,120 @@
+﻿@model OfficeSpace.Models.NavigationModel
+@{
+    ViewBag.Title = "Merge";
+}
+
+
+<div id="page-wrapper">
+    <div class="panel">
+        <div class="panel-heading red-background-colour">
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                    <h4><strong>Merge Request</strong></h4>
+                </div>
+                <div class="col-lg-8 col-md-8 col-sm-8">&nbsp;</div>
+            </div>
+        </div>
+        <div class="panel-body">
+            @using (Html.BeginForm("UpdateMerge", "Home", FormMethod.Post, new { @class = "form-font" }))
+            {
+                <div class="form-font table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr class="table-heading-font">
+                                <th class="table-head-th">Company Name</th>
+                                <th class="table-head-th">Request Type</th>
+                                <th class="table-head-th" style="min-width: 110px;">Business Type</th>
+                                <th class="table-head-th" style="min-width: 110px;">Allocation Type</th>
+                                <th class="table-head-th" style="min-width: 100px;">City</th>
+                                <th class="table-head-th" style="min-width: 100px;">Location</th>
+                                <th class="table-head-th">No. of Persons</th>
+                                <th class="table-head-th">Signage</th>                               
+                                <th class="table-head-th">Car Park</th>
+                                <th class="table-head-th">Security Deposit</th>
+                                <th class="table-head-th">Fitout</th>
+                                <th class="table-head-th">Cost per square feet</th>
+                                <th class="center">Merge</th>
+                            </tr>
+                        </thead>                        
+                        <tbody>
+                            @foreach (var detail in Model.UserDataList)
+                            {
+                                var indexing = Model.UserDataList.IndexOf(detail);
+                                @Html.HiddenFor(m => m.UserDataList[indexing].ID)
+                                @Html.HiddenFor(m => m.UserDataList[indexing].Company)
+                                @Html.HiddenFor(m => m.UserDataList[indexing].AllocationType)
+                                @Html.HiddenFor(m => m.UserDataList[indexing].Remarks)
+                                <tr>
+                                    <td>
+                                        @detail.Company
+                                    </td>
+                                    <td>
+                                        @detail.SelectedMenu
+                                    </td>
+                                    <td>
+                                        @detail.BuisnessType
+                                    </td>
+                                    <td>
+                                        @detail.AllocationType
+                                    </td>
+                                    <td>
+                                        @detail.City
+                                    </td>
+                                    <td>
+                                        @detail.Location
+                                    </td>
+                                    <td>
+                                        @detail.NoOfPersons
+                                    </td>
+                                    <td>
+                                        @detail.Signage
+                                    </td>                                
+                                    <td>
+                                        @detail.CarPark
+                                    </td>
+                                    <td>
+                                        @detail.SecurityDeposit
+                                    </td>
+                                    <td>
+                                        @detail.Fitouts
+                                    </td>
+                                    <td>
+                                        @detail.CostPerSquareFeet
+                                    </td>
+                                    <td class="text-center">
+                                        <span class="onoffswitch">
+                                            <input type="checkbox" id="active_@indexing" name="UserDataList[@indexing].IsMerged" class="onoffswitch-checkbox" onchange="setvalue(this.id)" @(detail.IsMerged == true ? "value=true" : "value=false") @(detail.IsMerged == true ? "checked=checked" : "") />
+                                            <label class="onoffswitch-label" for="active_@indexing">
+                                                <span class="onoffswitch-inner" data-swchon-text="ON" data-swchoff-text="OFF"></span>
+                                                <span class="onoffswitch-switch"></span>
+                                            </label>
+                                        </span>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row pull-right">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        @*<button type="button" class="btn btn-primary"><i class="fa fa-times-circle-o">&nbsp;</i>Cancel</button>&emsp;*@
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-check-circle">&nbsp;</i>Merge</button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        activeSideNav('mergerequest');
+    });
+
+    function setvalue(id) {
+        var checkbox = document.getElementById(id);
+        checkbox.value = checkbox.checked;
+    }
+
+</script>

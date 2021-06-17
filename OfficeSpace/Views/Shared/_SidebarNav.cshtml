@@ -1,0 +1,85 @@
+﻿
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0; border-bottom: rgb(139, 20, 26)">
+    @Html.Partial("_Navigation")
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+    </div>
+    <!-- /.navbar-header -->
+    <div class="navbar-default nav-side-menu sidebar" role="navigation">
+        <div class="sidebar-nav navbar-collapse">
+            <ul id="menu-content" class="menu-content">
+                <li id="home" style="padding-left: 5%; background-color: rgb(93, 93, 93); color: rgb(255, 255, 255);" onclick="activeSideNav('home')">
+                    <a href="~/Dashboard/Index" style="color: rgb(255, 255, 255);text-decoration:none;">
+                        <span class="sidenav-font"><i class="fa fa-1x fa-home">&nbsp;</i>&nbsp;Home</span>
+                    </a>
+                </li>
+                @if (Session["CurrentUserRole"].ToString() != "Admin")
+                {
+                    <li id="createrequest" style="padding-left: 5%; background-color: rgb(93, 93, 93); color: rgb(255, 255, 255);" onclick="activeSideNav('createrequest')">
+                        <a href="~/Home/Index" style="color: rgb(255, 255, 255);text-decoration:none;">
+                            <span class="sidenav-font"><i class="fa fa-1x fa-align-center">&nbsp;</i>&nbsp;Create Request</span>
+                        </a>
+                    </li>
+                }
+
+                @if (Session["CurrentUserRole"].ToString() == "User")
+                {
+                    <li id="reviewrequest" style="padding-left: 5%; background-color: rgb(93, 93, 93); color: rgb(255, 255, 255);" onclick="activeSideNav('reviewrequest')">
+                        <a href="~/Review/Index" style="color: rgb(255, 255, 255);text-decoration:none;">
+                            <span class="sidenav-font"><i class="fa fa-1x fa-align-center">&nbsp;</i>&nbsp;Review Request</span>
+                        </a>
+                    </li>
+                }
+
+                @if (Session["CurrentUserRole"].ToString() == "President")
+                {
+
+                    <li id="approval" style="padding-left: 5%; background-color: rgb(93, 93, 93); color: rgb(255, 255, 255);" onclick="activeSideNav('approval')">
+                        <a href="~/Approval/Index" style="color: rgb(255, 255, 255);text-decoration:none;">
+                            <span class="sidenav-font"><i class="fa fa-1x fa-angle-double-right">&nbsp;</i>&nbsp;Approve</span>
+                        </a>
+                    </li>
+                }
+                @if (Session["CurrentUserRole"].ToString() == "Admin")
+                {
+                    <li id="settings" style="padding-left: 5%; background-color: rgb(93, 93, 93); color: rgb(255, 255, 255);" onclick="activeSideNav('settings')">
+                        <a href="~/Settings/Index" style="color: rgb(255, 255, 255);text-decoration:none;">
+                            <span class="sidenav-font"><i class="fa fa-1x fa-cog">&nbsp;</i>&nbsp;User Master</span>
+                        </a>
+                    </li>
+                }
+
+                <li id="ChangePassword" style="padding-left: 5%; background-color: rgb(93, 93, 93); color: rgb(255, 255, 255);" onclick="activeSideNav('ChangePassword')">
+                    <a href="~/ChangePassword/Index" style="color: rgb(255, 255, 255);text-decoration:none;">
+                        <span class="sidenav-font"><i class="fa fa-1x fa-cog"></i>&nbsp;Change Password</span>
+                    </a>
+                </li>
+                @if (Session["CurrentUserRole"].ToString() == "President")
+                {
+                    <li id="FullfilledOffices" style="padding-left: 5%; background-color: rgb(93, 93, 93); color: rgb(255, 255, 255);" onclick="activeSideNav('FullfilledOffices')">
+                        <a href="~/FurnishedRentals/Index" style="color: rgb(255, 255, 255);text-decoration:none;">
+                            <span class="sidenav-font"><i class="fa fa-1x fa-angle-double-right">&nbsp;</i>Existing Rental Details</span>
+                        </a>
+                    </li>
+                }
+                </ul>
+        </div>
+    </div>
+</nav>
+
+
+<script type="text/javascript">
+    function activeSideNav(elementId) {
+        $.each($(".menu-content li"), function (key, value) {
+            $(value).removeClass('active')
+        });
+        $("#" + elementId).addClass("active");
+    }
+
+</script>

@@ -1,0 +1,257 @@
+﻿   
+.loginstyle {
+        font-family: FontAwesome;
+        color: #ffffff;
+        font-size: 28px; /* Approximation due to font substitution */
+        font-weight: 400;
+        line-height: 54px; /* Approximation due to font substitution */
+    }
+
+    .login-font {
+        font-family: "Railway", Times New Roman;
+        color: #ffffff;
+        font-size: 28px; /* Approximation due to font substitution */
+        font-weight: 400;
+        line-height: 54px; /* Approximation due to font substitution */
+    }
+
+    .prelogin-text-font {
+        font-family: "Railway", Times New Roman;
+        color: #5d5d5d;
+        font-size: 13.99px; /* Approximation due to font substitution */
+        font-weight: 600;
+        transform: scaleY(1.0003); /* width and height properties ommitted due to transform */
+    }
+	
+/*Css added by Anshika for font size on 20150928 start*/
+    .railway-font {
+
+        font-family:"Railway", Times New Roman;
+    }
+ .headingfont-style {
+
+    font-family:"Railway", Times New Roman;
+    color: #5d5d5d;
+    font-size: 13.99px; /* Approximation due to font substitution */
+    font-weight: 700;
+    text-align: left;
+    transform: scaleY(1.0003); /* width and height properties ommitted due to transform */
+}
+ .heading-sm-font-style {
+
+    font-family:"Railway", Times New Roman;
+    color: #5d5d5d;
+    font-size: 12.99px; /* Approximation due to font substitution */
+    font-weight: 700;
+    text-align: left;
+    transform: scaleY(1.0003); /* width and height properties ommitted due to transform */
+}
+
+  .data-font {
+    font-family:"Railway", Times New Roman;
+    color: #5d5d5d;
+    font-size: 12px; /* Approximation due to font substitution */
+    font-weight: 600;
+    line-height: 12px; /* Approximation due to font substitution */
+    text-align: left;
+    text-transform:uppercase;
+    
+}
+ 
+  .audit-heading-font {
+    text-transform:uppercase;
+    font-family:"Railway", Times New Roman;
+    color:  #5d5d5d;
+    font-size: 13.05px;/* Approximation due to font substitution */
+    font-weight: 600;
+    transform: scaleY(1.0003);/* width and height properties ommitted due to transform */
+    line-height: 13.5px; /* Approximation due to font substitution */
+
+}
+    .text-Uppercase {
+
+        text-transform:uppercase;
+    }
+
+ .red-heading-font {
+    font-family: "Railway", Times New Roman;
+    color:  #5d5d5d;
+    font-size: 14px;/* Approximation due to font substitution */
+    font-weight: 600;
+   
+ }
+
+.table-heading-font {
+
+    font-family:"Railway", Times New Roman;
+    color: #5d5d5d;
+    font-size: 14px; /* Approximation due to font substitution */
+    font-weight: 500;
+    line-height: 12px; /* Approximation due to font substitution */
+    text-align: left;
+    
+    
+}
+
+.table-data-font {
+    font-family:"Railway", Times New Roman;
+    color:  #5d5d5d;
+    font-size: 13.99px;/* Approximation due to font substitution */
+    font-weight: 500;
+    text-align: left;
+    transform: scaleY(1.0003);/* width and height properties ommitted due to transform */
+}
+
+.gray-heading-font {
+    font-family: "Railway", Times New Roman;
+    color:  #5d5d5d;
+    font-size: 14px;/* Approximation due to font substitution */
+    font-weight:500;
+    transform: scaleY(1.0003);/* width and height properties ommitted due to transform */
+}
+
+.lightgray-heading-font {
+    font-family:"Railway", Times New Roman;
+    color:  #5d5d5d;
+    font-size: 13.05px;/* Approximation due to font substitution */
+    font-weight: 600;
+    transform: scaleY(1.0003);/* width and height properties ommitted due to transform */
+
+}
+
+
+.white-heading-font {
+    font-family:"Railway", Times New Roman;
+    color:  white;
+    font-size: 13.05px;/* Approximation due to font substitution */
+    font-weight: 600;
+    transform: scaleY(1.0003);/* width and height properties ommitted due to transform */
+
+}
+
+ .small-gray {
+    font-family:"Railway", Times New Roman;
+    color:  #626262;
+    font-size: 13px;/* Approximation due to font substitution */
+    font-weight: 600;
+    line-height: 19px;/* Approximation due to font substitution */
+    text-align: left;
+}
+.navigation-font1 {
+    font-family:"Railway", Times New Roman;
+    color:  #ffffff;
+    font-size: 19px;/* Approximation due to font substitution */
+    font-weight: 400;
+   
+    
+}
+.navigation-font2 {
+    font-family:"Railway" !important;
+    color:  #ffffff;
+    font-size: 16px;/* Approximation due to font substitution */
+    font-weight: 400;
+    
+}
+.sidenav-font {
+
+    font-size: 14px;/* Approximation due to font substitution */
+    font-weight: 400;
+   
+}
+.sidenav-font1 {
+
+    font-size: 12px;/* Approximation due to font substitution */
+    font-weight: 400;
+   
+}
+.sidenav-font2 {
+
+    font-size: 12px;/* Approximation due to font substitution */
+    font-weight: 400;
+   
+}
+
+    .table-head-th {
+        background-color:#d1d1d1!important;
+        border-right:2px solid white;
+        z-index:1000;
+    }
+
+    .red-background-colour {
+
+        background-color: rgb(139, 20, 26)!important;
+        color:white!important;
+        border-radius:5px;
+    }
+    
+    .yellow-background-colour {
+
+        background-color: #cbcc00!important;
+        color:white!important;
+        border-radius:5px;
+    }
+    
+    .green-background-colour {
+
+        background-color: #00b300!important;
+        color:white!important;
+        border-radius:5px;
+    }
+
+        .btn-text-color {
+
+            color:white!important;
+        }
+
+    .tab-border {
+        border-bottom:1px solid #ddd;
+        border-left:1px solid #ddd;
+        border-right:1px solid #ddd;
+    }
+
+    .theme-red-background-color {
+        background-color:rgb(138, 23, 26);
+    }
+
+    .left-right-padding {
+        padding-left: 18px; 
+        padding-right: 18px;
+    }
+
+    .sm-left-right-padding {
+        padding-left:2%;
+        padding-right:2%;
+    }
+    .li-background {
+        color: rgb(255, 255, 255);
+        background-color: rgb(93, 93, 93);
+    }
+
+        .redcolor {
+            color: #5d5d5d;
+        }
+
+        .greencolor {
+            color: #84b44b;
+        }
+        .yellocolor {
+            color:yellow;
+        }
+/*Css added by Anshika for font size on 20150928 end*/
+
+.show {
+    display:block!important;
+}
+
+.vertical-middle {
+    vertical-align:middle;
+}
+.font-one-point-three {
+    font-size:1.3em;
+}
+.font-one-point-five {
+    font-size:1.5em;
+}
+.resize-vertical {
+    resize :vertical;
+}

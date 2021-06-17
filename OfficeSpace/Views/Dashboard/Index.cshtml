@@ -1,0 +1,268 @@
+﻿@model OfficeSpace.Models.DashboardModel
+@{
+    ViewBag.Title = "Dashboard";
+}
+<style type="text/css" runat="server">
+
+    .Button {
+        background-color: lightskyblue;
+        border: solid 1px;
+        color: black;
+        font-size: medium;
+    }
+
+    .buttonTotal {
+        color: white;
+        background-color: #34B8D9;
+        border: solid 1px
+    }
+
+        .buttonTotal:hover {
+            color: black;
+            background-color: yellow;
+            cursor: pointer;
+            border: solid 1px;
+        }
+
+    .buttonUnder {
+        color: white;
+        background-color: #15B929;
+        border: solid 1px;
+    }
+
+        .buttonUnder:hover {
+            color: black;
+            background-color: yellow;
+            cursor: pointer;
+            border: solid 1px;
+        }
+
+    .buttonFull {
+        color: white;
+        background-color: #F93F34;
+        border: solid 1px;
+    }
+
+        .buttonFull:hover {
+            color: black;
+            background-color: yellow;
+            cursor: pointer;
+            border: solid 1px;
+        }
+
+    .buttonDrop {
+        color: white;
+        background-color: #FC7E93;
+        border: solid 1px;
+    }
+
+        .buttonDrop:hover {
+            color: black;
+            background-color: yellow;
+            cursor: pointer;
+            border: solid 1px;
+        }
+
+    .buttonExpire {
+        color: white;
+        background-color: #AF329F;
+        border: solid 1px;
+    }
+
+        .buttonExpire:hover {
+            color: black;
+            background-color: yellow;
+            cursor: pointer;
+            border: solid 1px;
+        }
+
+    .buttonNewRequets {
+        color: white;
+        background-color: #F15637;
+        border: solid 1px;
+    }
+
+        .buttonNewRequets:hover {
+            color: black;
+            background-color: yellow;
+            cursor: pointer;
+            border: solid 1px;
+        }
+
+    .buttonExisting {
+        color: white;
+        background-color: darkgoldenrod;
+        border: solid 1px
+    }
+
+        .buttonExisting:hover {
+            color: black;
+            background-color: yellow;
+            cursor: pointer;
+            border: solid 1px;
+        }
+
+</style>
+@*@using (Html.BeginForm("Index", "Dashboard", FormMethod.Post))
+{*@
+<div style="padding-left: 350px; padding-right: 18px; padding-top: 20px;margin-top:0px;background-color:white;height:678px;">
+    <div style="width: 750px; background-color: maroon;">
+        <marquee direction="left"><strong> Welcome to SIS Store</strong></marquee>
+    </div>
+    <br />
+ 
+    <div class="form-group">
+        <label for="company" style="color:black">Select Company</label>
+        <select id="Company" name="Company" style="height:30px;width:400px">
+            @if (Model != null)
+            {
+                <option value="ALL">All</option>
+                foreach (string item in Model.CompanyList)
+                {
+                    <option value="@item">@item</option>
+                }
+            }
+        </select>
+    </div>
+
+    <table>
+        <tr>
+            <td colspan=2>
+                @if (Session["CurrentUserRole"].ToString() == "President")
+                {
+                    <button class="btn btn-primary buttonExisting" style="height:50px; width:760px ; font-size:x-large"  onclick="location.href='@Url.Action("Index", "FurnishedRentals")'" >
+                       Existing Rental Details
+                    </button>
+                }
+            </td>
+        </tr>
+        <tr>
+
+            <td>
+               
+                    <button class="btn btn-primary buttonTotal" style="height:168px; width:379px ; font-size:x-large" formaction="Total" onclick="getData('1')">
+                        <span class="fa fa-arrow-circle-right"></span>
+                        Total&nbsp;Requests - @Html.LabelFor(m => m.Total, Model.Total, new { id = "Total" })
+                    </button>
+               
+                </td>
+            <td>
+
+                <button class="btn btn-primary buttonNewRequets" style="height:168px; width:379px ; font-size:x-large" formaction="NewRequirement" onclick="getData('5')">
+                    <span class="fa fa-arrow-circle-right"></span>
+                    New Initiation - @Html.LabelFor(m => m.NewRequests, Model.NewRequests, new { id = "NewRequests" })
+                </button>
+            </td>
+
+        </tr>
+        <tr>
+            <td>
+                <button class="btn btn-primary buttonUnder" type="button" style="height:168px; width:379px ; font-size:x-large" formaction="UnderProcess" onclick="getData('2')">
+                    <span class="fa fa-arrow-circle-right"></span>
+                    Approved Requests-@Html.LabelFor(m => m.Underprocess, Model.Underprocess, new { id = "Underprocess" })
+                </button>
+            </td>
+
+            <td>
+                <button class="btn btn-primary buttonDrop" style="height:168px; width:379px ; font-size:x-large" formaction="Disapproved" onclick="getData('4')">
+                    <span class="fa fa-arrow-circle-right"></span>
+                    Disapproved&nbsp;Requests - @Html.LabelFor(m => m.Disapprove, Model.Disapprove, new { id = "Disapprove" })
+                </button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button class="btn btn-primary buttonFull" style="height:168px; width:379px ; font-size:x-large" formaction="Closed" onclick="getData('3')">
+                    <span class="fa fa-arrow-circle-right"></span>
+                    Closed Requests - @Html.LabelFor(m => m.Closed, Model.Closed, new { id = "Closed" })
+                </button>
+            </td>
+            <td>
+                <button class="btn btn-primary buttonExpire" style="height:168px; width:379px ; font-size:x-large" formaction="LeaseExpire" onclick="getData('6')">
+                    <span class="fa fa-arrow-circle-right"></span>
+                    Lease expiring in 90 days - @Html.LabelFor(m => m.LeaseExpire, Model.LeaseExpire, new { id = "LeaseExpire" })
+                </button>
+            </td>
+        </tr>
+    </table>
+</div>
+@*}*@
+<script type="text/javascript">
+    $(document).ready(function () {
+        activeSideNav('home');
+    });
+
+    
+    $(document).ready(function () {
+        $("#Company").change(function () {
+            var DropDownSelectedVal = $("#Company :selected").val();
+            if (DropDownSelectedVal != null) {
+                $.ajax({
+                 url: "@(Url.Action("FetchDashboardValues", "Dashboard"))",
+                    data: { "CompanyName": DropDownSelectedVal },
+                    contentType: "application/json",
+                    success: function (response) {
+                        $('#Total').text(response.model.Total);
+                        $('#Underprocess').text(response.model.Underprocess);
+                        $('#Closed').text(response.model.Closed);
+                        $('#Disapprove').text(response.model.Disapprove);
+                    },
+                    error: function (xhr) {
+                        alert("Something went wrong, please try again");
+                    }
+                });
+            }
+        });
+    });
+
+        $(document).ready(function () {
+        $("#Company").change(function () {
+            var DropDownSelectedVal = $("#Company :selected").val();
+            if (DropDownSelectedVal != null) {
+                $.ajax({
+                 url: "@(Url.Action("FetchDashboardValuesOther", "Dashboard"))",
+                    data: { "CompanyName": DropDownSelectedVal },
+                    contentType: "application/json",
+                    success: function (response) {
+                        $('#NewRequests').text(response.model.NewRequests);
+
+                    },
+                    error: function (xhr) {
+                        alert("Something went wrong, please try again");
+                    }
+                });
+            }
+        });
+    });
+
+        $(document).ready(function () {
+        $("#Company").change(function () {
+            var DropDownSelectedVal = $("#Company :selected").val();
+            if (DropDownSelectedVal != null) {
+                $.ajax({
+                 url: "@(Url.Action("FetchDashboardValuesLeaseExpire", "Dashboard"))",
+                    data: { "CompanyName": DropDownSelectedVal },
+                    contentType: "application/json",
+                    success: function (response) {
+                        $('#LeaseExpire').text(response.model.LeaseExpire);
+
+                    },
+                    error: function (xhr) {
+                        alert("Something went wrong, please try again");
+                    }
+                });
+            }
+        });
+    });
+
+    function redirectOnClick() {
+        document.location = 'FurnishedRentals/Index';
+    }
+
+
+    var url = '/DashboardDetail/Index?';
+    function getData(selectedMenuItem) {
+        url = '@Url.Action("Index", "DashboardDetail")?companyName=' + encodeURIComponent(document.getElementById("Company").value) + '&Flag=' + encodeURIComponent(selectedMenuItem);
+        window.location.href = url;
+    }
+    </script>

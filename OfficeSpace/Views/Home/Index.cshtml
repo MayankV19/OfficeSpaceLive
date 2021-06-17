@@ -1,0 +1,84 @@
+﻿@model OfficeSpace.Models.NavigationModel
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<div id="page-wrapper">
+    <div class="panel">
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                    <div class="form-group">
+                        <label for="company">Company</label>
+                        <select class="form-control" id="Company" name="Company">
+                            @if (Model != null)
+                            {
+                                foreach (string item in Model.CompanyList)
+                                {
+                                    <option value="@item">@item</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-8 col-md-8 col-sm-8">&nbsp;</div>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="panel">
+                <div class="panel-body">
+                    <div class="col-lg-1 col-md-1 col-sm-1">
+                        <a href="javascript:submitData('New Office')" class="connectedAppBtn">
+                            <img src="~/Images/RedButton.png" style="width:50px;height:50px;" />
+                        </a>
+                    </div>
+                    <div class="col-lg-11 col-md-11 col-sm-11">
+                        <strong style="font-size:16px;">New Office</strong>
+                        <p>Buy/Rent</p>
+                    </div>
+                </div>
+            </div>
+            <div class="panel">
+                <div class="panel-body">
+                    <div class="col-lg-1 col-md-1 col-sm-1">
+                        <a href="javascript:submitData('Relocation')" class="connectedAppBtn">
+                            <img src="~/Images/RedButton.png" style="width:50px;height:50px;" />
+                        </a>
+                    </div>
+                    <div class="col-lg-11 col-md-11 col-sm-11">
+                        <strong style="font-size:16px;">Relocation</strong>
+                        <p>Buy/Rent</p>
+                    </div>
+                </div>
+            </div>
+            <div class="panel">
+                <div class="panel-body">
+                    <div class="col-lg-1 col-md-1 col-sm-1">
+                        <a href="javascript:submitData('Additional Space')" class="connectedAppBtn">
+                            <img src="~/Images/RedButton.png" style="width:50px;height:50px;" />
+                        </a>
+                    </div>
+                    <div class="col-lg-11 col-md-11 col-sm-11">
+                        <strong style="font-size:16px;">Additional Space in an existing office</strong>
+                        <p>Buy/Rent</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        activeSideNav('createrequest');
+    });
+
+
+    var url = '/Home/AddBranchOffice?';
+    function submitData(selectedMenuItem) {
+
+        url = '@Url.Action("AddBranchOffice", "Home")?companyName=' + encodeURIComponent(document.getElementById("Company").value) + '&selectedMenu=' + encodeURIComponent(selectedMenuItem);
+        window.location.href = url;
+    }
+</script>

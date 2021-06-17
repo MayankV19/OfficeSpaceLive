@@ -1,0 +1,223 @@
+﻿@{
+    string array = "[6, 12, ALL]";    
+  
+}
+@model OfficeSpace.Models.ApprovalModel
+@{
+    ViewBag.Title = "DashboardDetail";
+}
+
+<link href="~/Content/bootstrap-table.min.css" rel="stylesheet" />
+<link href="~/ContentOld/Theme/Spinner.css" rel="stylesheet" />
+<style>
+    .fixed-table-toolbar .columns-right {
+        margin-top: 0px !important;
+    }
+
+    .fixed-table-toolbar .search {
+        margin-top: 0px !important;
+    }
+
+    .fixed-table-toolbar .columns label {
+        padding: 0px !important;
+        padding-left: 10px !important;
+    }
+
+    table tr {
+        cursor: pointer;
+    }
+
+    table td {
+        white-space: nowrap;
+        overflow: hidden;
+    }
+</style>
+
+<div id="page-wrapper">
+    <div class="panel">
+        <div class="panel-heading red-background-colour">
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                    <h4><strong>View Requests</strong></h4>
+                </div>
+                <div class="col-lg-8 col-md-8 col-sm-8">&nbsp;</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-11 col-md-11 col-sm-11">&nbsp;</div>
+            <div class="col-lg-1 col-md-1 col-sm-1">
+                <a href="@Url.Action("DownloadFile", "DashboardDetail",new { Flag = Model.Flag,companyName = Model.Company})" title="Download File">
+                    <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                    Download
+                </a>
+            </div>
+        </div>
+        <div class="panel-body tableLoader" style="text-align:center">
+        <div class="col-md-12">
+            @using (Html.BeginForm("UpdateRequest", "DashboardDetail", FormMethod.Post, new { @class = "form-font" }))
+            {
+               <div style="overflow-y:scroll; height:500px">
+                    @Html.HiddenFor(m => m.Company)
+                    @Html.HiddenFor(m => m.Flag)
+                    <table id="table" class="boot-table table-striped" 
+                           data-toggle="table"
+                           data-toolbar="#toolbar"
+                           data-search="true"
+                           data-show-columns="true"
+                           data-minimum-count-columns="2"
+                           data-pagination="true"
+                           data-id-field="ID"
+                           data-page-size="@ViewBag.pageSize"
+                           data-page-list="@array"
+                           data-show-footer="false"
+                           data-row-style="rowStyle">
+                        <thead>
+                            <tr>
+                                <th data-sortable="true">S.N.</th>
+                                <th data-sortable="true">CreationDate</th>
+                                <th data-sortable="true">City</th>
+                                <th data-sortable="true">Company</th>
+                                <th data-sortable="true">Type</th>
+                                <th data-sortable="true">Status</th>
+
+                                <th data-sortable="true">Request Type</th>
+                                <th data-sortable="true">Branch /R.O.</th>
+                                <th data-sortable="true">Rent /Buy</th>
+                                <th data-sortable="true">Lease_Renew Date</th>
+                                <th data-sortable="true">Requirement Date</th>
+                                <th data-sortable="true">FitOuts</th>
+                                <th data-sortable="true">Name</th>
+                                <th data-sortable="true">Email</th>
+                                <th data-sortable="true">Mobile No.</th>
+                                <th data-sortable="true">Location</th>
+                                <th data-sortable="true">Signage</th>
+                                <th data-sortable="true">Employee Count</th>
+                                <th data-sortable="true">SuperBuilt UpArea(Sq.ft.)</th>
+                                <th data-sortable="true">BuiltUp Area(Sq.ft.)</th>
+                                <th data-sortable="true">Carpet Area(Sq.ft.)</th>
+                                <th data-sortable="true">Rental Area(Sq.ft.)</th>
+                                <th data-sortable="true">Rental Cost(INR/Sq.ft.)</th>
+                                <th data-sortable="true">Total_Monthly Rental_Cost(INR)</th>
+                                <th data-sortable="true">Security Deposit(INR)</th>
+                                <th data-sortable="true">Car Park</th>
+                                <th data-sortable="true">Remarks</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var detail in Model.BranchDataList)
+                            {
+                                var indexing = Model.BranchDataList.IndexOf(detail);
+                                @Html.HiddenFor(m => m.BranchDataList[indexing].ID)
+                                @Html.HiddenFor(m => m.BranchDataList[indexing].CreationDate)
+                                @Html.HiddenFor(m => m.BranchDataList[indexing].DataType)
+                                @Html.HiddenFor(m => m.BranchDataList[indexing].Status)
+                                @Html.HiddenFor(m => m.BranchDataList[indexing].RequestID)
+                                @Html.HiddenFor(m => m.BranchDataList[indexing].Company)
+                                @Html.HiddenFor(m => m.BranchDataList[indexing].SelectedMenu)
+                                @Html.HiddenFor(m => m.BranchDataList[indexing].BuisnessType)
+                                @Html.HiddenFor(m => m.BranchDataList[indexing].AllocationType)
+                                @Html.HiddenFor(m => m.BranchDataList[indexing].City)
+                                @Html.HiddenFor(m => m.BranchDataList[indexing].ProposedDateofRenewal)
+                                @Html.HiddenFor(m => m.BranchDataList[indexing].DateFromWhich)
+                                @Html.HiddenFor(m => m.BranchDataList[indexing].Fitouts)
+                                @Html.HiddenFor(m => m.BranchDataList[indexing].ProposedLocation)
+                                @Html.HiddenFor(m => m.BranchDataList[indexing].ProposedSignage)
+                                @Html.HiddenFor(m => m.BranchDataList[indexing].ProposedNoOfPersons)
+                                @Html.HiddenFor(m => m.BranchDataList[indexing].ProposedSuperBuiltUp)
+                                @Html.HiddenFor(m => m.BranchDataList[indexing].ProposedBuiltUp)
+                                @Html.HiddenFor(m => m.BranchDataList[indexing].ProposedCarpetArea)
+                                @Html.HiddenFor(m => m.BranchDataList[indexing].ProposedRentalArea)
+                                @Html.HiddenFor(m => m.BranchDataList[indexing].ProposedCostPerSquareFeet)
+                                @Html.HiddenFor(m => m.BranchDataList[indexing].ProposedMonthlyCost)
+                                @Html.HiddenFor(m => m.BranchDataList[indexing].ProposedSecurityDeposit)
+                                @Html.HiddenFor(m => m.BranchDataList[indexing].ProposedCarPark)
+                                @Html.HiddenFor(m => m.BranchDataList[indexing].ProposedRequestedBy)
+                                @Html.HiddenFor(m => m.BranchDataList[indexing].ProposedRemarks)
+
+                            <tr>
+                                <td> @detail.RequestID   </td>
+                                <td>  @detail.CreationDate </td>
+                                <td> @detail.City </td>
+                                <td> @detail.Company   </td>
+                                <td>  @detail.DataType </td>
+                                <td>  @detail.Status  </td>
+
+                                <td> @detail.SelectedMenu  </td>
+                                <td> @detail.BuisnessType  </td>
+                                <td> @detail.AllocationType  </td>
+
+                                <td> @detail.ProposedDateofRenewal </td>
+                                <td>  @detail.DateFromWhich </td>
+                                <td> @detail.Fitouts </td>
+                                <td> @detail.CreatedByName   </td>
+                                <td> @detail.CreatedByEmail   </td>
+                                <td> @detail.CreatedByPhone   </td>
+                                @if (detail.DataType == "Existing")
+                                {
+                                    <td> @detail.ExistingLocation   </td>
+                                    <td>  @detail.Signage </td>
+                                    <td>  @detail.NoOfPersons </td>
+                                    <td> @detail.SuperBuiltUp   </td>
+                                    <td> @detail.BuiltUp   </td>
+                                    <td> @detail.CarpetArea   </td>
+                                    <td> @detail.RentalArea   </td>
+                                    <td> @detail.CostPerSquareFeet   </td>
+                                    <td> @detail.ExistingMonthlyCost   </td>
+                                    <td> @detail.SecurityDeposit   </td>
+                                    <td> @detail.CarPark   </td>
+                                    <td> @detail.Remarks   </td>
+                                }
+                                else
+                                {
+                                    <td> @detail.ProposedLocation   </td>
+                                    <td>  @detail.ProposedSignage </td>
+                                    <td>  @detail.ProposedNoOfPersons </td>
+                                    <td> @detail.ProposedSuperBuiltUp   </td>
+                                    <td> @detail.ProposedBuiltUp   </td>
+                                    <td> @detail.ProposedCarpetArea   </td>
+                                    <td> @detail.ProposedRentalArea   </td>
+                                    <td> @detail.ProposedCostPerSquareFeet   </td>
+                                    <td> @detail.ProposedMonthlyCost   </td>
+                                    <td> @detail.ProposedSecurityDeposit   </td>
+                                    <td> @detail.ProposedCarPark   </td>
+                                    <td> @detail.ProposedRemarks   </td>
+                                }
+                            </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row pull-right" style="visibility:hidden">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <button hidden="hidden" type="submit" class="btn btn-primary"><i class="fa fa-check-circle">&nbsp;</i>Update</button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+     </div>
+</div>
+
+<script src="~/Scripts/bootstrap/bootstrap-table.min.js"></script>
+<script src="~/Scripts/jquery.tabletojson.min.js"></script>
+
+<script src="~/Scripts/export/Blob.min.js"></script>
+<script src="~/Scripts/export/FileSaver.min.js"></script>
+<script src="~/Scripts/export/xls.core.min.js"></script>
+<script src="~/Scripts/export/tableexport.js"></script>
+
+<script src="~/Scripts/moment.min.js"></script>
+
+<script src="~/Scripts/main/extension.js"></script>
+<script type="text/javascript">
+    //$(document).ready(function () {
+    //    activeSideNav('approval');
+    //});
+
+    function setvalue(id) {
+        var checkbox = document.getElementById(id);
+        checkbox.value = checkbox.checked;
+    }
+
+</script>
