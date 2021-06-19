@@ -34,7 +34,7 @@ namespace OfficeSpace.Controllers
                         {
                             Session["CurrentUserName"] = model.Username;
                             Session["CurrentUserRole"] = roleName;
-                            return RedirectToAction("Index", "Dashboard");
+                            return RedirectToAction("Index", "FurnishedRentals");
                         }
                         else
                         {
